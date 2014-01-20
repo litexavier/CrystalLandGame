@@ -1,18 +1,6 @@
 from logrec import BattleRecorder
 from gameutils import random_pick
 
-def move_dead_char(team, dead_team, logrec):
-    moved_team = []
-    for ch in team:
-        if ch.hp == 0:
-            ch.alive = False
-            logrec.dead(ch.name)
-        if not ch.alive:
-            dead_team.append(ch)
-        else:
-            moved_team.append(ch)
-    return moved_team
-
 def get_min_time(target, team):
     res = target
     for ch in team:
@@ -34,6 +22,7 @@ class BattleTeam(object):
     def reset_time_bar(self):
         for i in self.team:
             i.spd_bar = 0
+            i.stage   = 0 # 0: do nothing, 1: casting(magic), 2: charging(physical).
 
     def set_all_alive(self):
         for i in self.team:
@@ -51,16 +40,33 @@ class BattleTeam(object):
                 self.dead.append(i)
         self.team = new_team
 
-def skill_applied(skill, tiggered_char, friends, enemies, recorder):
-    if not skill.cost.do(tiggered_char):
-        recorder.failuseskill(tiggered_char.name)
-        return False
+def skill_applied(skill, tiggered_char, friends, enemies, recorder, prepared = False, action_spd = 0):
+    # Cost applied
+    if not prepared: 
+        if not skill.cost.do(tiggered_char):
+            recorder.failuseskill(tiggered_char.name)
+            return False
+        if skill.prepare_time > 0: # need prepare
+            if skill.damage_type == 1:
+                tiggered_char.stage = 1
+                recorder.casting(tiggered_char.name, tiggered_char.spd_bar, tiggered_char.spd_bar - skill.prepare_time)
+            elif skill.damage_type == 2:
+                tiggered_char.stage = 2
+                recorder.charging(tiggered_char.name, tiggered_char.spd_bar, tiggered_char.spd_bar - skill.prepare_time)
+            tiggered_char.spd_bar -= skill.prepare_time
+            tiggered_char.tiggered_skill = skill
+            return True
+    # Already prepared or no prepare time skill, run following.
     recorder.useskill(tiggered_char.name, skill.name)
     for i in range(0, skill.times):
         target = skill.selector.do(tiggered_char, friends.team, enemies.team)
         skill.applied(tiggered_char, target, recorder)
         if target.hp <= 0:
             target.team_obj.move_all_dead(recorder)
+    # Time recalculate & stage reset.
+    tiggered_char.spd_bar -= action_spd + skill.delay_time
+    tiggered_char.stage = 0
+    tiggered_char.tiggered_skill = None
     return True
 
 class BattleEngine(object):
@@ -116,7 +122,6 @@ class BattleEngine(object):
             # Someone should move this turn.
             if len(chs) > 0 :
                 rch = random_pick(chs)
-                rch.spd_bar -= self.action_spd
                 if rch.team_flag == 1:
                     friends = team1
                     enemies = team2
@@ -124,12 +129,15 @@ class BattleEngine(object):
                     friends = team2
                     enemies = team1
                 recorder.set_team_flag(rch.team_flag)
-                # AI Calculation
-                for ai in rch.ai_list:
-                    if ai.statified(rch, friends.team, enemies.team):
-                        # skill applied
-                        skill_applied(ai.tigger_skill, rch, friends, enemies, recorder)
-                        break
+                if rch.stage != 0: # Apply skill, directly
+                    skill_applied(rch.tiggered_skill, rch, friends, enemies, recorder, prepared=True, action_spd = self.action_spd)
+                else:
+                    # AI Calculation
+                    for ai in rch.ai_list:
+                        if ai.statified(rch, friends.team, enemies.team):
+                            # skill applied
+                            skill_applied(ai.tigger_skill, rch, friends, enemies, recorder, action_spd = self.action_spd)
+                            break
                 # Clean Battle
                 team1.move_all_dead(recorder)
                 team2.move_all_dead(recorder)

@@ -1,4 +1,4 @@
-# -*- coding: cp936 -*-
+# -*- coding: utf-8 -*-
 
 def info_extract(team, fr, bk):
     for ch in team:
@@ -33,14 +33,20 @@ class BattleRecorder(object):
         self.add({"type":3, "s":self.side, "name":name})
     
     def tied(self):
-        self.add({"type":0, "msg": "平局!".decode('cp936')})
+        self.add({"type":0, "msg": "骞冲眬!".decode('utf-8')})
 
     def t1win(self):
-        self.add({"type":0, "msg": "Team1 赢了".decode('cp936')})
+        self.add({"type":0, "msg": "Team1 璧簡".decode('utf-8')})
 
     def t2win(self):
-        self.add({"type":0, "msg": "Team2 赢了".decode('cp936')})
+        self.add({"type":0, "msg": "Team2 璧簡".decode('utf-8')})
 
+    def charging(self, name, barbe, baraf):
+        self.add({"type":5, "s":self.side, "name":name, "barbe":barbe, "baraf":baraf})
+
+    def casting(self, name, barbe, baraf):
+        self.add({"type":6, "s":self.side, "name":name, "barbe":barbe, "baraf":baraf})
+                  
     def broadcast(self, turn, team1, dteam1, team2, dteam2):
         t1fr = []
         t1bk = []

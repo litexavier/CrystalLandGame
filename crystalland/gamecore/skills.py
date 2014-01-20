@@ -25,10 +25,13 @@ def phy_damage_calc(ATK, DMR, PERC, DEF, CRI, ACC, BLK):
 
 class NormalAttackSkill(object):
     name = "普通攻击".decode("utf-8")
+    describe="对目标敌人造成100%的物理伤害"
     id   = 0
     selector = skillutils.enemies_select_with_protect()
     times = 1
-
+    prepare_time = 0
+    delay_time = 0
+    damage_type = 2
     cost = skillutils.none_cost_applied()
  
     def applied(self, tiggered_char, target, logrec):
@@ -44,10 +47,13 @@ class NormalAttackSkill(object):
 
 class ClawAttackSkill(object):
     name = "爪击".decode("utf-8")
+    describe = "对目标造成100%的物理伤害"
     id   = 1
     selector = skillutils.enemies_select_with_protect()
     times = 2
-
+    prepare_time = 10
+    delay_time = 0
+    damage_type = 2
     cost = skillutils.sp_cost_applied(2)        
     
     def applied(self, tiggered_char, target, logrec):

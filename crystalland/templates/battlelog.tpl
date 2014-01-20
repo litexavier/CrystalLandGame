@@ -21,6 +21,12 @@
 {% ifequal l.type 4 %}
 <div id="sl"> <span id="fname"> {{ l.name }} </span> 陷入了沉思. </div>
 {% endifequal %}
+{% ifequal l.type 5 %}
+<div id="sl"> <span id="fname"> {{ l.name }} </span> 开始蓄力 <span> ({{l.barbe}}  &gt;&gt; {{l.baraf}}) </span> </div> 
+{% endifequal %}
+{% ifequal l.type 6 %}
+<div id="sl"> <span id="fname"> {{ l.name }} </span> 开始咏唱 <span> ({{l.barbe}}  &gt;&gt; {{l.baraf}}) </span> </div> 
+{% endifequal %}
 {% ifequal l.s 1 %}
 </td><td class="bc2">
 {% endifequal %}
