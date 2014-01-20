@@ -1,0 +1,22 @@
+body { font-family: Verdana; font-size: 14px; background: black; }
+#doc { padding-top:16px; position: relative; width: 700px; margin-left: auto; margin-right: auto; }
+#mainbold { background: #10151b; }
+#main { margin: 0 20px 0 20px; background: darkslategray; color: #bdc8d7; }
+.fname { color: yellow; font-weight: bold; }
+.bname { color: #cc3300; font-weight: bold; }
+.bpname { font-weight: bold; }
+.dmg { color: #cc3300; font-weight: bold; }
+h2 { padding-top: 8px; padding-bottom: 8px; color: white; font-weight: 300; width: 640px; padding-left: 5px; margin: 10px 0px; border-bottom: 1px solid #cad3df; text-align: center; }
+h3 { text-align: center; font-size; 16px; text-decoration: underline; }
+.bc1 { width: 350px; }
+.bc2 { width: 350px; border-left: 1px solid #070b0e; }
+#sl {text-decoration: underline; }
+#bdc { width:100%; }
+span.bold { color: white; font-weight: bold; }
+.break { border-bottom: 5px solid #10151b; }
+.bl { border-collapse:collapse; }
+.hpsp { padding-left: 15px; }
+.hp { color: #3366ff; font-family: Verdana;}
+.sp { color: #66cc66; font-family: Verdana;}
+.bh { border-bottom: 1px solid #10151b; border-top: 5px solid #10151b; }
+.bcri { color: #5ab2b7; font-weight: bold; }
