@@ -7,7 +7,6 @@ def info_extract(team, fr, bk):
         else:
             bk.append({"name":ch.name, "hp":ch.hp, "maxhp":ch.maxhp, "sp":ch.sp, "maxsp":ch.maxsp, "spdb":ch.spd_bar})                
 
-
 class BattleRecorder(object):
     def __init__ (self):
         self.rec = []
@@ -46,7 +45,13 @@ class BattleRecorder(object):
 
     def casting(self, name, barbe, baraf):
         self.add({"type":6, "s":self.side, "name":name, "barbe":barbe, "baraf":baraf})
-                  
+
+    def stat_attach(self, name, statname):
+        self.add({"type":7, "s":self.side, "name":name, "statname":statname})
+
+    def stat_run(self, statname, name, dmg):
+        self.add({"type":8, "s":self.side, "name":name, "statname":statname, "dmg":dmg})
+        
     def broadcast(self, turn, team1, dteam1, team2, dteam2):
         t1fr = []
         t1bk = []

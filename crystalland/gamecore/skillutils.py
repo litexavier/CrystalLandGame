@@ -13,6 +13,10 @@ class enemies_select_with_protect(object):
                     break
         return target
 
+class select_friends_team(object):
+    def do(skill, tiggered_char, friends, enemies):
+        return friends
+
 # Cost Applier
 class none_cost_applied(object):
     def do(self, tiggered_char):
@@ -24,5 +28,5 @@ class sp_cost_applied(object):
     def do(self, tiggered_char):
         if tiggered_char.sp < self.cost:
             return False
-        tiggered_char.sp -= 2
+        tiggered_char.sp -= self.cost
         return True 

@@ -18,6 +18,7 @@ class BattleTeam(object):
         for i in self.team:
             i.team_flag = side
             i.team_obj  = self
+            i.attach_status = []
 
     def reset_time_bar(self):
         for i in self.team:
@@ -42,7 +43,11 @@ class BattleTeam(object):
 
 def skill_applied(skill, tiggered_char, friends, enemies, recorder, prepared = False, action_spd = 0):
     # Cost applied
-    if not prepared: 
+    if not prepared:
+        # Apply buff/debuff
+        for i in tiggered_char.attach_status:
+            i.applied(tiggered_char, recorder)
+        # Use skill
         if not skill.cost.do(tiggered_char):
             recorder.failuseskill(tiggered_char.name)
             return False
@@ -61,8 +66,8 @@ def skill_applied(skill, tiggered_char, friends, enemies, recorder, prepared = F
     for i in range(0, skill.times):
         target = skill.selector.do(tiggered_char, friends.team, enemies.team)
         skill.applied(tiggered_char, target, recorder)
-        if target.hp <= 0:
-            target.team_obj.move_all_dead(recorder)
+        friends.move_all_dead(recorder)
+        enemies.move_all_dead(recorder)
     # Time recalculate & stage reset.
     tiggered_char.spd_bar -= action_spd + skill.delay_time
     tiggered_char.stage = 0
@@ -132,12 +137,17 @@ class BattleEngine(object):
                 if rch.stage != 0: # Apply skill, directly
                     skill_applied(rch.tiggered_skill, rch, friends, enemies, recorder, prepared=True, action_spd = self.action_spd)
                 else:
+                    have_skill_applied = False
                     # AI Calculation
                     for ai in rch.ai_list:
                         if ai.statified(rch, friends.team, enemies.team):
                             # skill applied
                             skill_applied(ai.tigger_skill, rch, friends, enemies, recorder, action_spd = self.action_spd)
+                            have_skill_applied = True
                             break
+                    if not have_skill_applied :
+                        rch.spd_bar -= 100
+                        recorder.failuseskill(rch.name)
                 # Clean Battle
                 team1.move_all_dead(recorder)
                 team2.move_all_dead(recorder)

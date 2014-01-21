@@ -16,16 +16,22 @@
 {% endif %}
 {% endifequal %}
 {% ifequal l.type 3 %}
-<span id="bname"> {{ l.name }} </span> 死掉了.
+<span class="bname"> {{ l.name }} </span> 死掉了.
 {% endifequal %}
 {% ifequal l.type 4 %}
-<div id="sl"> <span id="fname"> {{ l.name }} </span> 陷入了沉思. </div>
+<div id="sl"> <span class="fname"> {{ l.name }} </span> 陷入了沉思. </div>
 {% endifequal %}
 {% ifequal l.type 5 %}
-<div id="sl"> <span id="fname"> {{ l.name }} </span> 开始蓄力 <span> ({{l.barbe}}  &gt;&gt; {{l.baraf}}) </span> </div> 
+<div id="sl"> <span class="fname"> {{ l.name }} </span> 开始蓄力 <span> ({{l.barbe}}  &gt;&gt; {{l.baraf}}) </span> </div> 
 {% endifequal %}
 {% ifequal l.type 6 %}
-<div id="sl"> <span id="fname"> {{ l.name }} </span> 开始咏唱 <span> ({{l.barbe}}  &gt;&gt; {{l.baraf}}) </span> </div> 
+<div id="sl"> <span class="fname"> {{ l.name }} </span> 开始咏唱 <span> ({{l.barbe}}  &gt;&gt; {{l.baraf}}) </span> </div> 
+{% endifequal %}
+{% ifequal l.type 7 %}
+<span class="bname"> {{ l.name }} </span> 被附加了状态：<span class="attach-stat"> {{ l.statname }} </span>
+{% endifequal %}
+{% ifequal l.type 8 %}
+由于 <span class="attach-stat"> {{ l.statname }} </span> ，<span class="fname"> {{ l.name }} </span> 受到了 <span class="dmg"> {{ l.dmg }} </span> 点伤害.
 {% endifequal %}
 {% ifequal l.s 1 %}
 </td><td class="bc2">
