@@ -5,8 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'crystalland.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+    url(r'^play/', include('play.urls')),
     #url( r'^static/(?P<path>.*)$', 'django.views.static.serve',
     #                                        { 'document_root':settings.STATIC_ROOT }),
     url(r'^test/(\d+)vs(\d+)', 'gamecore.views.testbattle'),

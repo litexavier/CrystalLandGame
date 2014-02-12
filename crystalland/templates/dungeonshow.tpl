@@ -34,7 +34,7 @@
 {% csrf_token %}
 <span>副本名称：</span><input type="text" name="dname"/><br>
 <span>每次战斗是否刷新：</span>
-<input type="radio" name="rbb" value="yes" selected/>是
+<input type="radio" name="rbb" value="yes" checked/>是
 <input type="radio" name="rbb" value="no"/>否
 <br>
 <input type="submit"/>

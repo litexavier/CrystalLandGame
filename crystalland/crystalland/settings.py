@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gamecore',
+    'play',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,7 +52,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'crystalland.urls'
 
 WSGI_APPLICATION = 'crystalland.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -96,3 +96,5 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
+LOGIN_URL = '/play/login'
