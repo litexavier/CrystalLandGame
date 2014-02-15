@@ -54,7 +54,9 @@ def DoLogin(request):
     user = auth.authenticate(username=username, password=password)
     if user is not None and user.is_active:
         auth.login(request, user)
-    return HttpResponseRedirect("/play/")
+    else:
+        return HttpResponse(json.dumps({"flag":"fail","msg":"用户名密码错误"}))
+    return HttpResponse(json.dumps({"flag":"succ","msg":""}))
 
 @login_required
 def DoLogout(request):

@@ -3,6 +3,32 @@
 	$(".navbar-collapse #"+hi_id).addClass("active");
 }
 
+function LoginAction() {
+	un = document.getElementById("UserName").value;
+	up = document.getElementById("Password").value;
+	if(un == "")
+	{
+		$("#LoginFeedback").addClass("alert-danger");
+		$("#LoginFeedback").show();
+		$("#LoginFeedback").empty().append("错误：用户名不能为空");
+		return;
+	}
+	$.post("/play/login/do", {"username":un, "password":up, csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value}, 
+		function(data) {
+			if(data.flag=="succ")
+			{
+				window.location.href='/play/mercenaries';
+			}
+			else
+			{
+				$("#LoginFeedback").addClass("alert-danger");
+				$("#LoginFeedback").show();
+				$("#LoginFeedback").empty().append("错误："+data.msg);
+			}
+		},
+		"json");
+}
+
 function SubmitNewGuild() {
 	d = document.getElementById("GuildName").value;
 	if(d == "")
