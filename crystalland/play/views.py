@@ -1,3 +1,4 @@
+﻿import json
 from django.shortcuts import render, render_to_response
 from django.utils.html import strip_spaces_between_tags as short
 from django.http import HttpResponse, HttpResponseRedirect
@@ -5,36 +6,49 @@ from django.template import RequestContext
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
+from models import GuildDB
 
 # Create your views here.
 def Main(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect("/play/mercenaries/")
     response = render_to_response('play/play_index.tpl', {}, context_instance=RequestContext(request))
     if 'text/html' in response['Content-Type']:
         response.content = short(response.content)
     return response
 
 def Register(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect("/play/mercenaries/")
     response = render_to_response('play/play_register.tpl', {}, context_instance=RequestContext(request))
     if 'text/html' in response['Content-Type']:
         response.content = short(response.content)
     return response
 
 def DoRegister(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect("/play/mercenaries/")
     username = request.POST.get('UserName', '')
     password = request.POST.get('Password', '')
     user = User.objects.create_user(username=username, password=password)
     user.save()
     auth_user = auth.authenticate(username=username, password=password)
-    auth_user.login(request, user)
+    auth.login(request, auth_user)
     return HttpResponseRedirect("/play/")
 
 def LoginPage(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect("/play/mercenaries/")
     response = render_to_response('play/play_login.tpl', {}, context_instance=RequestContext(request))
     if 'text/html' in response['Content-Type']:
         response.content = short(response.content)
     return response
 
 def DoLogin(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect("/play/mercenaries/")
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
@@ -46,3 +60,30 @@ def DoLogin(request):
 def DoLogout(request):
     auth.logout(request)
     return HttpResponseRedirect("/play/")
+
+@login_required
+def Mercenaries(request):
+    try:
+        guild = GuildDB.objects.get(pk=request.user.id)
+    except ObjectDoesNotExist:
+        response = render_to_response('play/mercenaries_new.tpl', {}, context_instance=RequestContext(request))
+        if 'text/html' in response['Content-Type']:
+            response.content = short(response.content)
+        return response
+    
+    response = render_to_response('play/mercenaries_home.tpl', {}, context_instance=RequestContext(request))
+    if 'text/html' in response['Content-Type']:
+        response.content = short(response.content)
+    return response
+    
+@login_required
+def DoCreateGuild(request):
+    gd = GuildDB(id=request.user.id, name=request.GET.get("name", ""), gold=0, honor=0)
+    try:
+        gd.save(force_insert=True)
+    except IntegrityError as e:
+        if "column" in e.message:
+            return HttpResponse(json.dumps({"flag":"fail", "msg":"该公会已经存在"}))
+        else:
+            return HttpResponse(json.dumps({"flag":"fail", "msg":"操作非法"}))
+    return HttpResponse(json.dumps({"flag":"succ", "msg":""}))

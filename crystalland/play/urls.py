@@ -7,4 +7,6 @@ urlpatterns = patterns('',
     (r'^login/$', 'play.views.LoginPage'),
     (r'^login/do$', 'play.views.DoLogin'),
     (r'^logout/do$', 'play.views.DoLogout'),
+    (r'^mercenaries/$', 'play.views.Mercenaries'),
+    (r'^guild/create/do$', 'play.views.DoCreateGuild'),
 )
