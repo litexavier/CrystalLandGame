@@ -89,3 +89,19 @@ def DoCreateGuild(request):
         else:
             return HttpResponse(json.dumps({"flag":"fail", "msg":"操作非法"}))
     return HttpResponse(json.dumps({"flag":"succ", "msg":""}))
+
+@login_required
+def Town(request):
+    try:
+        guild = GuildDB.objects.get(pk=request.user.id)
+    except ObjectDoesNotExist:
+        response = render_to_response('play/mercenaries_new.tpl', {}, context_instance=RequestContext(request))
+        if 'text/html' in response['Content-Type']:
+            response.content = short(response.content)
+        return response
+    
+    response = render_to_response('play/town_home.tpl', {}, context_instance=RequestContext(request))
+    if 'text/html' in response['Content-Type']:
+        response.content = short(response.content)
+    return response
+

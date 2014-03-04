@@ -16,9 +16,9 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li id="nav-mercenaries"><a href="#">佣兵团</a></li>
+				<li id="nav-mercenaries"><a href="/play/mercenaries/">佣兵团</a></li>
 				<li id="nav-battles"><a href="#">战斗</a></li>
-				<li id="nav-cities"><a href="#">城镇</a></li>
+				<li id="nav-town"><a href="/play/town/">城镇</a></li>
 				<li id="nav-maps"><a href="#">地图</a></li>
 				<li id="nav-help"><a href="#">帮助</a></li>
 			</ul>

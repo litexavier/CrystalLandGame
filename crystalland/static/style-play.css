@@ -1,3 +1,10 @@
 .style-play-main { padding-top: 60px; }
 .style-play-main-login { width: 400px; margin-left: auto; margin-right: auto;}
 .dialog-top-margin.modal { margin-top: 120px; }
+.shop-tab-left { width: 80%;  }
+.shop-tab-right { width: 20%; padding-left: 20px; }
+.shop-table { background: white; width: 91%; }
+.shop-item-list li { list-style: none; width: 120px; float:left; height: 60px; background: #f9f9f9; border: 1px solid darkgray; padding: 5px; font-size: 12px; text-align: center; margin: 0 10px 0 10px}
+.shop-item-list li .pic { float: left; height: 50px; width: 40px; text-align: center;}
+.shop-item-list li .name { font-weight: bold; margin-top: 10px; }
+.shop-item-list li .price { text-align: right; margin-top: 10px;}
