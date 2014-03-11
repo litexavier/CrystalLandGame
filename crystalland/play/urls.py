@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     (r'^mercenaries/$', 'play.views.Mercenaries'),
     (r'^guild/create/do$', 'play.views.DoCreateGuild'),
     (r'^town/$', 'play.views.Town'),
+    (r'^action/hire/$', 'play.views.DoHire'),
 )

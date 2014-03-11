@@ -51,3 +51,31 @@ function SubmitNewGuild() {
 			}	
 		});
 }
+
+function HireMercenary() {
+	d = document.getElementById("MerName").value;
+	if( d == "")
+	{
+		$("#MercenaryPreSubFB").parent().addClass("has-error");
+		$("#MercenaryPreSubFB").empty().append("雇佣兵名称不能为空");
+		return;
+	}
+	else
+	{
+		$("#MercenaryPreSubFB").parent().removeClass("has-error");
+		$("#MercenaryPreSubFB").empty();
+	}
+	$.getJSON("/play/action/hire/", {"name":d, "cls": $(".hirecls").find("option:selected").val(), csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value}).done(
+		function(data) {
+			if(data.flag=="succ")
+			{
+				$("#HireStep2").hide();
+				$("#HireStep3").show();
+			}
+			else
+			{
+				$("#HireStep2").hide();
+				$("#HireStep3").show();
+			}
+		});
+}

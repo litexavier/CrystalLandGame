@@ -105,3 +105,7 @@ def Town(request):
         response.content = short(response.content)
     return response
 
+@login_required
+def DoHire(request):
+    print request.POST
+    return HttpResponse(json.dumps({"flag":"succ", "msg":""}))
