@@ -1,42 +1,37 @@
 ﻿{% extends "basic_inc.tpl" %}
 {% block header_trail %} 
-<link rel="stylesheet" href="/static/bootstrap.min.css">
+<link rel="stylesheet" href="/static/style-iconfont.css">
 <link rel="stylesheet" href="/static/style-play.css">
 <script src="/static/jquery-1.10.2.min.js"></script>
-<script src="/static/bootstrap.min.js"></script>
 <script src="/static/js-play.js"></script>
 <title> 水晶大陆 </title>
 {% endblock %}
-
 {% block body_content %}
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">水晶大陆</a>
-		</div>
-		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-				<li id="nav-mercenaries"><a href="/play/mercenaries/">佣兵团</a></li>
-				<li id="nav-battles"><a href="#">战斗</a></li>
-				<li id="nav-town"><a href="/play/town/">城镇</a></li>
-				<li id="nav-maps"><a href="#">地图</a></li>
-				<li id="nav-help"><a href="#">帮助</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				{% if user.is_authenticated %}
-				<li id="nav-logname"><a>{{user.username}} </a></li>
-				<li id="nav-logout"><a href="/play/logout/do">登出</a></li>
-				{% else %}
-				<li id="nav-login"><a href="/play/login/">登录</a></li>
-				<li id="nav-register"><a href="/play/register/">注册</a></li>
-				{% endif %}
-			</ul>
-		</div>
-	</div>
+<div class='play-main-frame'>
+    <div class='title-nav'>
+    	 <div class='title' data-href='/play/'><span class='maintitle'>水晶大陆</span><span class='subtitle'>ALPHA</span></div>
+	 <div class='navs'>
+		<div class='navitem' id='mercenaries' data-href='/play/mercenaries/'> <span> 社团 </span> </div>
+		<div class='navitem' id='town' data-href='/play/town/'> <span> 城镇 </span> </div>
+		<div class='navitem' id='fights' data-href='/play/fights/'> <span> 战斗 </span> </div>
+	 </div>
+	 <div class='nav-info'>
+	      {% if user.username %}
+	      	 <span> 欢迎您, {{ user.username }} </span>
+		 <span class='nav-info-person-btn' data-href='/play/person/'>[个人]</span>
+		 <span class='nav-info-logout-btn' data-href='/play/logout/do'>[登出]</span>
+	      {% else %}
+	      	 <span class='nav-info-login-btn' data-href='/play/login/'>[登入]</span>
+		 <span class='nav-info-register-btn' data-href='/play/register'>[注册]</span>
+	      {% endif %}
+	 </div>
+    </div>
+    <div class='main-content'>
+    	 {% block main_content %}
+	 {% endblock %}
+    </div>
+    <div class='footer'>
+    	 <span> Author By <a href='mailto:xavier_lt@163.com'>@Xavier.Lite</a>, 2013-2014 </span>
+    </div>
 </div>
-<div class="container style-play-main">
-	{% block content %}
-	{% endblock %}
-</div>
-<script> $(function ($) { hilight_nav(navhilightid); }) </script>
 {% endblock %}

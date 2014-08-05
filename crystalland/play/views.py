@@ -14,6 +14,7 @@ from models import GuildDB
 def Main(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect("/play/mercenaries/")
+
     response = render_to_response('play/play_index.tpl', {}, context_instance=RequestContext(request))
     if 'text/html' in response['Content-Type']:
         response.content = short(response.content)
@@ -22,6 +23,7 @@ def Main(request):
 def Register(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect("/play/mercenaries/")
+
     response = render_to_response('play/play_register.tpl', {}, context_instance=RequestContext(request))
     if 'text/html' in response['Content-Type']:
         response.content = short(response.content)
@@ -29,18 +31,24 @@ def Register(request):
 
 def DoRegister(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect("/play/mercenaries/")
-    username = request.POST.get('UserName', '')
-    password = request.POST.get('Password', '')
-    user = User.objects.create_user(username=username, password=password)
-    user.save()
-    auth_user = auth.authenticate(username=username, password=password)
-    auth.login(request, auth_user)
-    return HttpResponseRedirect("/play/")
+        return HttpResponse(json.dumps({"status":"fail", "msg":"您已经登录", "redirect": "/play/"}))
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    try:
+        user = User.objects.create_user(username=username, password=password)
+        user.save()
+    except IntegrityError:
+        return HttpResponse(json.dumps({"status":"fail", "msg":"用户名已存在", "redirect": ""})) 
+    except:
+        return HttpResponse(json.dumps({"stauts":"fail", "msg":"未知错误", "redirect": ""}))
+        auth_user = auth.authenticate(username=username, password=password)
+        auth.login(request, auth_user)
+    return HttpResponse(json.dumps({"status":"ok", "msg":"注册成功", "redirect": "/play/mercenaries"}))
 
 def LoginPage(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect("/play/mercenaries/")
+
     response = render_to_response('play/play_login.tpl', {}, context_instance=RequestContext(request))
     if 'text/html' in response['Content-Type']:
         response.content = short(response.content)
@@ -48,15 +56,17 @@ def LoginPage(request):
 
 def DoLogin(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect("/play/mercenaries/")
+        return HttpResponse(json.dumps({"status":"fail", "msg":"您已经登录", "redirect": "/play/"}))
+
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
     if user is not None and user.is_active:
         auth.login(request, user)
     else:
-        return HttpResponse(json.dumps({"flag":"fail","msg":"用户名密码错误"}))
-    return HttpResponse(json.dumps({"flag":"succ","msg":""}))
+        return HttpResponse(json.dumps({"status":"fail","msg":"用户名密码错误", "redirect": ""}))
+    
+    return HttpResponse(json.dumps({"status":"ok","msg":"","redirect":"/play/mercenaries"}))
 
 @login_required
 def DoLogout(request):
@@ -72,12 +82,12 @@ def Mercenaries(request):
         if 'text/html' in response['Content-Type']:
             response.content = short(response.content)
         return response
-    
+            
     response = render_to_response('play/mercenaries_home.tpl', {}, context_instance=RequestContext(request))
     if 'text/html' in response['Content-Type']:
         response.content = short(response.content)
     return response
-    
+        
 @login_required
 def DoCreateGuild(request):
     gd = GuildDB(id=request.user.id, name=request.GET.get("name", ""), gold=0, honor=0)
@@ -85,10 +95,10 @@ def DoCreateGuild(request):
         gd.save(force_insert=True)
     except IntegrityError as e:
         if "column" in e.message:
-            return HttpResponse(json.dumps({"flag":"fail", "msg":"该公会已经存在"}))
+            return HttpResponse(json.dumps({"status":"fail", "msg":"该社团已经存在"}))
         else:
-            return HttpResponse(json.dumps({"flag":"fail", "msg":"操作非法"}))
-    return HttpResponse(json.dumps({"flag":"succ", "msg":""}))
+            return HttpResponse(json.dumps({"status":"fail", "msg":"操作非法"}))
+    return HttpResponse(json.dumps({"status":"ok", "msg":""}))
 
 @login_required
 def Town(request):
@@ -99,7 +109,7 @@ def Town(request):
         if 'text/html' in response['Content-Type']:
             response.content = short(response.content)
         return response
-    
+            
     response = render_to_response('play/town_home.tpl', {}, context_instance=RequestContext(request))
     if 'text/html' in response['Content-Type']:
         response.content = short(response.content)

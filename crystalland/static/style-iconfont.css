@@ -1,0 +1,253 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot?lta4tj');
+	src:url('fonts/icomoon.eot?#iefixlta4tj') format('embedded-opentype'),
+		url('fonts/icomoon.woff?lta4tj') format('woff'),
+		url('fonts/icomoon.ttf?lta4tj') format('truetype'),
+		url('fonts/icomoon.svg?lta4tj#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-droplet:before {
+	content: "\e60c";
+}
+.icon-image:before {
+	content: "\e60e";
+}
+.icon-image2:before {
+	content: "\e60f";
+}
+.icon-bookmark:before {
+	content: "\e6cb";
+}
+.icon-bookmarks:before {
+	content: "\e6cc";
+}
+.icon-happy:before {
+	content: "\e6d8";
+}
+.icon-happy2:before {
+	content: "\e6d9";
+}
+.icon-smiley:before {
+	content: "\e6da";
+}
+.icon-smiley2:before {
+	content: "\e6db";
+}
+.icon-tongue:before {
+	content: "\e6dc";
+}
+.icon-tongue2:before {
+	content: "\e6dd";
+}
+.icon-sad:before {
+	content: "\e6de";
+}
+.icon-sad2:before {
+	content: "\e6df";
+}
+.icon-wink:before {
+	content: "\e6e0";
+}
+.icon-wink2:before {
+	content: "\e6e1";
+}
+.icon-grin:before {
+	content: "\e6e2";
+}
+.icon-grin2:before {
+	content: "\e6e3";
+}
+.icon-cool:before {
+	content: "\e6e4";
+}
+.icon-cool2:before {
+	content: "\e6e5";
+}
+.icon-angry:before {
+	content: "\e6e6";
+}
+.icon-angry2:before {
+	content: "\e6e7";
+}
+.icon-evil:before {
+	content: "\e6e8";
+}
+.icon-evil2:before {
+	content: "\e6e9";
+}
+.icon-shocked:before {
+	content: "\e6ea";
+}
+.icon-shocked2:before {
+	content: "\e6eb";
+}
+.icon-confused:before {
+	content: "\e6ec";
+}
+.icon-confused2:before {
+	content: "\e6ed";
+}
+.icon-neutral:before {
+	content: "\e6ee";
+}
+.icon-neutral2:before {
+	content: "\e6ef";
+}
+.icon-wondering:before {
+	content: "\e6f0";
+}
+.icon-wondering2:before {
+	content: "\e6f1";
+}
+.icon-point-up:before {
+	content: "\e6f2";
+}
+.icon-point-right:before {
+	content: "\e6f3";
+}
+.icon-point-down:before {
+	content: "\e6f4";
+}
+.icon-point-left:before {
+	content: "\e6f5";
+}
+.icon-warning:before {
+	content: "\e6f6";
+}
+.icon-notification:before {
+	content: "\e6f7";
+}
+.icon-question:before {
+	content: "\e6f8";
+}
+.icon-info:before {
+	content: "\e6f9";
+}
+.icon-info2:before {
+	content: "\e6fa";
+}
+.icon-blocked:before {
+	content: "\e6fb";
+}
+.icon-cancel-circle:before {
+	content: "\e600";
+}
+.icon-checkmark-circle:before {
+	content: "\e6fc";
+}
+.icon-spam:before {
+	content: "\e6fd";
+}
+.icon-close:before {
+	content: "\e601";
+}
+.icon-checkmark:before {
+	content: "\e6fe";
+}
+.icon-checkmark2:before {
+	content: "\e6ff";
+}
+.icon-minus:before {
+	content: "\e701";
+}
+.icon-plus:before {
+	content: "\e702";
+}
+.icon-enter:before {
+	content: "\e703";
+}
+.icon-exit:before {
+	content: "\e704";
+}
+.icon-play3:before {
+	content: "\e70a";
+}
+.icon-pause2:before {
+	content: "\e70b";
+}
+.icon-stop2:before {
+	content: "\e70c";
+}
+.icon-backward2:before {
+	content: "\e70d";
+}
+.icon-forward3:before {
+	content: "\e70e";
+}
+.icon-first:before {
+	content: "\e70f";
+}
+.icon-last:before {
+	content: "\e710";
+}
+.icon-previous:before {
+	content: "\e711";
+}
+.icon-next:before {
+	content: "\e712";
+}
+.icon-loop:before {
+	content: "\e71b";
+}
+.icon-loop2:before {
+	content: "\e71c";
+}
+.icon-loop3:before {
+	content: "\e71d";
+}
+.icon-shuffle:before {
+	content: "\e71e";
+}
+.icon-arrow-up-left2:before {
+	content: "\e727";
+}
+.icon-arrow-up2:before {
+	content: "\e728";
+}
+.icon-arrow-up-right2:before {
+	content: "\e729";
+}
+.icon-arrow-right2:before {
+	content: "\e72a";
+}
+.icon-arrow-down-right2:before {
+	content: "\e72b";
+}
+.icon-arrow-down2:before {
+	content: "\e72c";
+}
+.icon-arrow-down-left2:before {
+	content: "\e72d";
+}
+.icon-arrow-left2:before {
+	content: "\e72e";
+}
+.icon-checkbox-unchecked:before {
+	content: "\e739";
+}
+.icon-checkbox-partial:before {
+	content: "\e73a";
+}
+.icon-radio-checked:before {
+	content: "\e73b";
+}
+.icon-radio-unchecked:before {
+	content: "\e73c";
+}
