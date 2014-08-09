@@ -5,8 +5,10 @@ input:focus, textarea:focus { outline:none; }
 .bc1 { border-color: #437096; }
 .c1  { color: #437096; }
 .fullw { width: 100%; }
+.mag20 { margin-left: 20; }
+.nondisp { display: none; }
 .tpl-data { display: none; }
-.play-main-frame {background: #fff; color: #555; margin-right:auto; 
+.play-main-frame {margin-top: 50px; background: #fff; color: #555; margin-right:auto; 
 margin-left:auto;width:800px;height:600px;}
 .play-main-frame div {float:left; display:inline; }
 .play-main-frame .title-nav {width:100%;height:50px;background:#437096;}
@@ -55,3 +57,43 @@ input[type='text'], input[type='password'] { border-width: 1px; border-style: so
 .hint:before { content: "\e6f9"; font-family: 'icomoon'; }
 .main-panel { margin-left: 10px; margin-right: 10px; }
 .main-panel input { font-size: 100%; }
+
+.slide-content { height: 505px; width: 800px; margin-left: 23px; margin-top: 10px; }
+.slide-content div { float: left; display: inline; }
+.slide-content .sidenav { width: 200px; height: 505px; background: #437096; border: none;}
+.slide-content .sidenavcontent { margin-left: -1px; width: 550px; height: 503; border: 1px solid #437096; border-left: none; }
+.slide-content .sidenav .sidenavitem { margin-left: 10px; height: 40px; width: 189px; text-align: center; color: #b2cbe0; margin-top: 10px; }
+.slide-content .sidenav .sidenavitem div { float: none; display:block; margin-top: 8px; }
+.slide-content .sidenav .sidenavitem:hover { background: #fff; color: #437096; }
+.slide-content .sidenav .sidenavitem.active { background: #fff; border-right: 1px solid #fff; color: #437096; }
+
+.hire-form { margin: 20px; color: #000;}
+.hire-form .hire-class-title { margin-bottom: 2px; }
+.hire-form .hire-class-list { width: 100%; margin-top: 10px; }
+.hire-form .hire-class-list lu { list-style-type: none; }
+.hire-form .hire-class-list lu .hire-title { background: #8888AA; color: #fff; }
+.hire-form .hire-class-list lu .hire-item, .hire-title { margin-left: 20px; }
+.hire-form .hire-class-list lu .hire-item:hover { background: #eee; }
+.hire-form .hire-class-list lu .hire-item.active { background: #b2cbe0; }
+.hire-form .hire-class-list .name { width: 80px; display: inline-block; }
+.hire-form .hire-class-list .describe { width: 350px; display: inline-block; }
+.hire-phase-2 .form-sep-panel { margin-left: 80px; }
+.hire-phase-2 { margin-top: 20px; }
+
+.member-list { margin-left: 40px; margin-top: 20px; }
+.member-list lu { list-style-type: none; }
+.member-list lu li span { display: inline-block; }
+.member-list lu li span.name { width: 100px; }
+.member-list lu li span.lv   { width: 50px; }
+.member-list lu li span.cls  { width: 100px; }
+.member-list lu li span.disp { width: 60px; }
+.member-list lu li span.hpsp { width: 60px; }
+.member-list lu li span.op   { width: 100px; }
+.member-list lu .member-list-item .disp.yes { font-weight: bold; color: green;}
+.member-list lu .member-list-item .disp.no { font-weight: bold; color: red;}
+.member-list lu .member-list-item .hpsp .hp { font-weight: bold; color: #3aa6d0;}
+.member-list lu .member-list-item .hpsp .sp { font-weight: bold; color: #62247f;}
+.member-list .member-list-item:hover { background: #eee; }
+.member-list .member-list-item.active { background: #b2cbe0; }
+.member-list .member-list-title { background: #3f92d2; color: #fff; }
+

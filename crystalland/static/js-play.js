@@ -102,6 +102,63 @@ function Dialog() {
     Dialog.prototype.close=function() {this.dlg.remove();}
     return this;
 }
+function Sidenav (e) {
+    this.items = [];
+    this.data = document.getElementById(e);
+    var its = $(this.data).find('.sidenavitem');
+    var cont= $(this.data).find('.sidenavcontent');
+    for(i=0;i<its.length;i++) {
+        $(its[i]).click(this, function(e){e.data.doclick(this)});
+        this.items.push(its[i]);
+        }
+    Sidenav.prototype.setDefault = function(l) {
+        this.doclick(this.items[l])
+    }
+    Sidenav.prototype.doclick = function(it){
+        for(i=0;i<this.items.length;i++) $(this.items[i]).removeClass('active');
+        $(it).addClass('active');
+        if(it.hasAttribute('data-content'))
+        {
+            var cp=it.getAttribute('data-content')
+            $.get(cp, function(e){
+                if(e['status'] == 'ok') {
+                    cont.empty().append(e['msg']);
+                }
+            }, 'json')
+        } else {
+            cont.empty();
+        }
+    }
+    return this;
+}
+function ClickableList(e) {
+    this.data = document.getElementById(e);
+    this.active = null;
+    $(this.data).find('.list-item').click(this, function(e){e.data.doclick(this)});
+    ClickableList.prototype.doclick = function(it) {
+        this.reset();
+        this.active = it; if('actcb' in this)this.actcb(it);
+        $(it).addClass('active'); 
+    }
+    ClickableList.prototype.reset = function () {
+        if(this.active != null) $(this.active).removeClass('active');
+        if('disactcb' in this)this.disactcb(this.active);
+        this.active=null;
+    }
+    ClickableList.prototype.getActiveId = function() {
+        if(this.active == null)return "";
+        return this.active.getAttribute('data-id');
+    }
+    ClickableList.prototype.act = function(e) {
+        this.actcb = e;
+        return this;
+    }
+    ClickableList.prototype.disact = function(e) {
+        this.disactcb = e;
+        return this;
+    }
+    return this;
+}
 function userloginsubmit(e) {
     var fm=getpar(e, "FORM");
     clearmsg(fm);
@@ -122,13 +179,21 @@ function userregsubmit(e) {
     if(up != rpup) {showerrmsg(fm, "两次输入的密码不匹配"); return false;}
     return msgasyncpost(fm, {'username': un, 'password': up});
 }
+function hiresubmit(e) {
+    var fm=getpar(e, "FORM");
+    clearmsg(fm);
+    var un=$(fm).find('input[name="hirename"]').val();
+    if(un.length==0||un.length>32) {showerrmsg(fm, "佣兵名称不应为空或者长度大于32"); return false;}
+    return msgasyncpost(fm, {'clsname':cl.getActiveId(), 'pname':un});
+}
 function createguildsubmit(e) {
     var fm=getpar(e, "FORM");
     clearmsg(fm);
     var un=$(fm).find('input[name="guildname"]').val();
     if(un.length==0||un.length>32) {showerrmsg(fm, "社团名不应为空或者长度大于32"); return false;}
     return msgasyncpost(fm, {'name':un});
-}    
+}
+function dohire(e) {}
 function resetform(e) {
     var fm=e;
     while(fm.nodeName != "FORM") fm=fm.parentNode;
@@ -143,8 +208,8 @@ function msgasyncpost(d,da) {
     $.post(t, da,
 	         function(e){
 	             if(e['status']=='ok') {
-		               showmsg(d, e['msg']);
-		               if(e['redirect']!='') window.location.href=e['redirect'];
+		               if('msg' in e && e['msg'] != '') showmsg(d, e['msg']);
+		               if('redirect' in e && e['redirect']!='') window.location.href=e['redirect'];
 	             } else {
 		               showerrmsg(d, e['msg']);
 	             }

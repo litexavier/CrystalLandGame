@@ -1,4 +1,5 @@
 *.swp
 *~
-*.db
 *.pyc
+
+crystalland/database/crystall.db
