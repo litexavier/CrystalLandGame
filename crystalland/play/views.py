@@ -83,8 +83,7 @@ def Mercenaries(request):
         if 'text/html' in response['Content-Type']:
             response.content = short(response.content)
         return response
-            
-    response = render_to_response('play/mercenaries_home.tpl', {}, context_instance=RequestContext(request))
+    response = render_to_response('play/mercenaries_home.tpl', {'guild':guild}, context_instance=RequestContext(request))
     if 'text/html' in response['Content-Type']:
         response.content = short(response.content)
     return response
@@ -101,10 +100,30 @@ def MercenariesMembers(request):
     c = RequestContext(request, {'member_list': member_list})
     content = short(loader.get_template('play/mercenaries_members.tpl').render(c))
     return HttpResponse(json.dumps({'status': 'ok', 'msg': content}))
+
+@login_required
+def GetMemberDetail(request):
+    try:
+        guild = GuildDB.objects.get(pk=request.user.id)
+    except ObjectDoesNotExist:
+        return HttpResponse(json.dumps({'status':'fail', 'msg': '社团还未建立，不能雇佣', 'redirect': ''}))
+    gid = request.GET.get('id', 0)
+    print gid
+    res=guild.mercenaries.filter(pk=gid)
+    print res
+    if len(res) <= 0:
+        return HttpResponse(json.dumps({'status': 'fail', 'data': ''}))
+    member_detail = {}
+    member_detail['id'] = res[0].id
+    member_detail['name'] = res[0].name
+    member_detail['cls'] = play_settings.NEWPLAYER_CLASS_TABLE[res[0].cl]['name']
+    member_detail['lv'] = res[0].lv
+    print member_detail
+    return HttpResponse(json.dumps({'status': 'ok', 'data': member_detail}))
         
 @login_required
 def DoCreateGuild(request):
-    gd = GuildDB(id=request.user.id, name=request.POST.get("name", ""), gold=0, honor=0)
+    gd = GuildDB(id=request.user.id, name=request.POST.get("name", ""), gold=100, honor=0)
     try:
         gd.save(force_insert=True)
     except IntegrityError as e:
@@ -125,7 +144,7 @@ def Town(request):
             response.content = short(response.content)
         return response
             
-    response = render_to_response('play/town_home.tpl', {}, context_instance=RequestContext(request))
+    response = render_to_response('play/town_home.tpl', {'guild':guild}, context_instance=RequestContext(request))
     if 'text/html' in response['Content-Type']:
         response.content = short(response.content)
     return response
@@ -157,11 +176,15 @@ def DoHire(request):
         if pname == i.name :
             return HttpResponse(json.dumps({'status':'fail', 'msg': '社团里已有人起该名字', 'redirect': ''}))
     tab = play_settings.NEWPLAYER_CLASS_TABLE[cls]
+    pr  = int(tab['price'])
+    if guild.gold < pr:
+        return HttpResponse(json.dumps({'status':'fail', 'msg': '社团资金不足，无法雇佣', 'redirect': ''}))
     mec = MercenaryDB(name = pname, cl= cls, maxhp = tab['hp'], maxsp = tab['sp'], atk=tab['atk'], matk=tab['matk'], _def=tab['def'], mdef=tab['mdef'], spd=tab['spd'], _str= 1, _vit= 1, _int= 1)
     try:
         mec.save()
+        guild.mercenaries.add(mec)
+        guild.gold -= pr
+        guild.save()
     except Expection as e:
         return HttpResponse(json.dumps({'status':'fail', 'msg': '系统异常', 'redirect': ''}))
-    guild.mercenaries.add(mec)
-    guild.save()
     return HttpResponse(json.dumps({'status': 'ok', "msg":"雇佣成功", "redirect": "/play/mercenaries/"}))

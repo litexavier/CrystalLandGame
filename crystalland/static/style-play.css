@@ -33,7 +33,8 @@ margin-left:auto;width:800px;height:600px;}
 .mainc { margin: 10px; height: 490px; width: 550px; }
 .sidec { margin: 10px; height: 490px; width: 200px; }
 .footer a, a:visited { color: #b2cbe0; }
-.dialog { border: 1px solid #437096; position: absolute; z-index: 25; }
+.dialog-bg { z-index: 24; background: #000; position: absolute; top:0px; left:0px;}
+.dialog { border: 1px solid #437096; position: absolute; z-index: 25; background: #fff; }
 .dialog div{ float: left; display: inline;}
 .dialog .dialog-title { width: 100%; height: 24px; font-size: 16px; background: #437096; color: #fff; }
 .dialog .dialog-title .dialog-title-text { text-indent: 5px; }
@@ -57,12 +58,13 @@ input[type='text'], input[type='password'] { border-width: 1px; border-style: so
 .hint:before { content: "\e6f9"; font-family: 'icomoon'; }
 .main-panel { margin-left: 10px; margin-right: 10px; }
 .main-panel input { font-size: 100%; }
-
-.slide-content { height: 505px; width: 800px; margin-left: 23px; margin-top: 10px; }
+.mercenary-slide { height: 480px; width: 800px;}
+.town-slide { height: 480px; width: 800px; }
+.slide-content { width: 100%; height: 100%; }
 .slide-content div { float: left; display: inline; }
-.slide-content .sidenav { width: 200px; height: 505px; background: #437096; border: none;}
-.slide-content .sidenavcontent { margin-left: -1px; width: 550px; height: 503; border: 1px solid #437096; border-left: none; }
-.slide-content .sidenav .sidenavitem { margin-left: 10px; height: 40px; width: 189px; text-align: center; color: #b2cbe0; margin-top: 10px; }
+.slide-content .sidenav { width: 22%; height: 100%; background: #437096; border: none; padding-left: 3%; border-bottom: 2px solid #437096; }
+.slide-content .sidenavcontent { margin-left: -1px; width: 75%; height: 100%; border: 1px solid #437096; border-left: none; }
+.slide-content .sidenav .sidenavitem { height: 40px; width: 100%; text-align: center; color: #b2cbe0; margin-top: 10px; }
 .slide-content .sidenav .sidenavitem div { float: none; display:block; margin-top: 8px; }
 .slide-content .sidenav .sidenavitem:hover { background: #fff; color: #437096; }
 .slide-content .sidenav .sidenavitem.active { background: #fff; border-right: 1px solid #fff; color: #437096; }
@@ -96,4 +98,8 @@ input[type='text'], input[type='password'] { border-width: 1px; border-style: so
 .member-list .member-list-item:hover { background: #eee; }
 .member-list .member-list-item.active { background: #b2cbe0; }
 .member-list .member-list-title { background: #3f92d2; color: #fff; }
+.member-list .member-list-item .span-btn { color: #437096; }
 
+.guild-status-bar { height: 20px; width: 800px; font-size: 13px; }
+.guild-status-bar div { float: right; }
+.guild-status-bar div:after { content: '|'; }

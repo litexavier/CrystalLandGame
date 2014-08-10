@@ -73,17 +73,25 @@
     };
 })(jQuery);
 $(function(){init();});
-function init() { datahrefinit(); }
-function footerloc() {var h=$('.main-content')[0].offsetHeight; h=550-h-25; $('.footer').css('margin-top', h + 'px');}
+function init() { datahrefinit();rsh = new ResizeEventHandler(); }
 function navhilight(e) {$('#'+e).addClass('active');}
 function datahrefinit() {$('[data-href]').click(function(e){window.location.href=this.getAttribute('data-href');});}
 function Dialog() {
     this.dlgtxt=""; this.dlgtitle=""; this.w = 0; this.h = 0; this.dc=false;
+	  Dialog.prototype.resize=function() {
+		    x=document.body.scrollWidth;
+		    y=document.body.scrollHeight;
+		    this.dlgbg.css("width", x);
+		    this.dlgbg.css("height", y);
+	  }
     Dialog.prototype.setWH=function(w,h) {this.w=w;this.h=h;}
     Dialog.prototype.setdlg=function(dlg) {this.dlgtxt=dlg;}
     Dialog.prototype.setTitle=function(t) {this.dlgtitle=t;}
     Dialog.prototype.disableClose=function() {this.dc=true;}
     Dialog.prototype.show=function() {
+        this.dlgbg=$("<div class=\"dialog-bg\"></div>");
+        this.dlgbg.css('opacity', '0.6');
+        this.resize();
         var mfx = $('.play-main-frame')[0].offsetLeft;
 	      var mfy = $('.play-main-frame')[0].offsetTop;
 	      var mr = (800 - this.w)/2;
@@ -96,10 +104,34 @@ function Dialog() {
 	      this.dlg.css("top", (mfy + 100) + "px");
         this.dlg.css("left", (mr + mfx) +"px");
         if(!this.dc) this.attach('dialog-title-close-bt', 'click', function(e){e.data.close();});
-	      $(document.body).append(this.dlg);
+	      $(document.body).append(this.dlgbg);
+        $(document.body).append(this.dlg);
+        rsh.addTrigger(this);
+        this.dlgbg.click(this,function(e){e.data.close();});
     }
+    Dialog.prototype.onResize=function(e){this.resize();}
     Dialog.prototype.attach=function(g,a,e){this.dlg.find('.'+g).bind(a,this,e);}
-    Dialog.prototype.close=function() {this.dlg.remove();}
+    Dialog.prototype.close=function() {this.dlg.remove();this.dlgbg.remove();rsh.delTrigger(this);}
+    return this;
+}
+function ResizeEventHandler() {
+	  this.eventqueue=[];
+    $(window).resize(this, function(e){return e.data.onResize(e);});
+	  ResizeEventHandler.prototype.onResize=function(e) {
+		    for(var i=0;i<this.eventqueue.length;i++) {
+			      this.eventqueue[i].onResize(e);
+		    }
+	  }
+	  ResizeEventHandler.prototype.addTrigger=function(tr) {
+		    this.eventqueue.push(tr);
+	  }
+	  ResizeEventHandler.prototype.delTrigger=function(tr) {
+		    for(var i=0;i<this.eventqueue.length;i++)
+			      if(this.eventqueue[i] == tr) {
+				        this.eventqueue.splice(i,1);
+				        break;
+			      }
+	  }
     return this;
 }
 function Sidenav (e) {
@@ -110,7 +142,7 @@ function Sidenav (e) {
     for(i=0;i<its.length;i++) {
         $(its[i]).click(this, function(e){e.data.doclick(this)});
         this.items.push(its[i]);
-        }
+    }
     Sidenav.prototype.setDefault = function(l) {
         this.doclick(this.items[l])
     }
@@ -193,7 +225,6 @@ function createguildsubmit(e) {
     if(un.length==0||un.length>32) {showerrmsg(fm, "社团名不应为空或者长度大于32"); return false;}
     return msgasyncpost(fm, {'name':un});
 }
-function dohire(e) {}
 function resetform(e) {
     var fm=e;
     while(fm.nodeName != "FORM") fm=fm.parentNode;
@@ -227,12 +258,17 @@ function showmsg(d, da) {
     s.empty();
     s.append('<span class="notice-succ"><span class="icon-success"></span>' + da + '</span');
 }
-function showdialog(e) {
+function showdialog(e,s) {
     var p=$('script[data-tpl='+e+']')[0];
-    d=new Dialog();
+    var d=new Dialog();
     d.setTitle(p.getAttribute('data-title'));
     d.setWH(p.getAttribute('data-width'), p.getAttribute('data-height'));
-    d.setdlg(p.innerText);
+    var t=p.innerText;
+    console.log(s);
+    if(s!=null) for(var it in s) {
+        t=t.replace('##'+it+'##',s[it]);
+    }
+    d.setdlg(t);
     var x=p.getAttribute('data-enable-close');
     if(x=='disable') d.disableClose();
     return d.show();
@@ -241,4 +277,9 @@ function getpar(e,t) {
     var r=e;
     while(r.nodeName != t) r=r.parentNode;
     return r;
+}
+function showmerdetail(e) {
+    $.get('/play/mercenaries/members/show/do', {id: e}, function(e){
+        showdialog('msg-dialog', e.data);
+    }, 'json');
 }
