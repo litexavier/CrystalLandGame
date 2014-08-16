@@ -1,8 +1,8 @@
-﻿
-{% extends "play/common_play_inc.tpl" %}
+﻿{% extends "play/common_play_inc.tpl" %}
 
 {% block main_content %}
-<script> navhilight('town'); </script>
+
+<script type='text/javascript'> navhilight('town'); </script>
 {% include "play/guild_status_bar.tpl" %}
 <div class='town-slide' id='town-slide'>
   <div class='slide-content'>
@@ -16,5 +16,6 @@
     </div>
   </div>
 </div>
-<script type='text/javascript'> sv=new Sidenav('town-slide'); sv.setDefault(0); </script>
+<script type='text/javascript'> sv=new Sidenav('town-slide'); sv.setDefault(0);</script>
+
 {% endblock %}

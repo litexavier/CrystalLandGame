@@ -17,10 +17,14 @@
 		    	{% csrf_token %}
 		        <div class='notice-fb'></div>
 			<div class='user-input-panel'>
+        <div class='user-input-sep'>
 			     <span class='label'>用户名：</span>
-			     <input class='bc1' type='text' name='username' style='width:120px'/> <br>
+			     <input class='bc1' type='text' name='username' style='width:120px'/>
+        </div>
+        <div class='user-input-sep'>
 			     <span class='label'>密码：</span> 
 			     <input class='bc1' type='password' name='password' style='width:120px'/>
+        </div>
 			</div>
 			<div class='input-btn-panel'>
 			     <div class='btn' onclick='userloginsubmit(this);'> <div class='btn-inner'> 确认 </div> </div>

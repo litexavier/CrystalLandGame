@@ -72,10 +72,11 @@
         return eval('(' + s + ')');
     };
 })(jQuery);
-$(function(){init();});
-function init() { datahrefinit();rsh = new ResizeEventHandler(); }
+rsh=new ResizeEventHandler();
+$(function(){init();}); 
+function init() { datahrefinit();}
 function navhilight(e) {$('#'+e).addClass('active');}
-function datahrefinit() {$('[data-href]').click(function(e){window.location.href=this.getAttribute('data-href');});}
+function datahrefinit() {$('[data-href]').click(function(e){window.location=this.getAttribute('data-href');});}
 function Dialog() {
     this.dlgtxt=""; this.dlgtitle=""; this.w = 0; this.h = 0; this.dc=false;
 	  Dialog.prototype.resize=function() {
@@ -263,8 +264,7 @@ function showdialog(e,s) {
     var d=new Dialog();
     d.setTitle(p.getAttribute('data-title'));
     d.setWH(p.getAttribute('data-width'), p.getAttribute('data-height'));
-    var t=p.innerText;
-    console.log(s);
+    var t=p.innerHTML;
     if(s!=null) for(var it in s) {
         t=t.replace('##'+it+'##',s[it]);
     }

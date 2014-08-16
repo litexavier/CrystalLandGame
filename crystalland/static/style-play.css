@@ -1,4 +1,5 @@
-body {background: #ebe7df;}
+* { margin:0; padding:0; }
+body {background: #ebe7df; font-family: '微软雅黑'，'黑体', 'roboto', sans-serif; font-size: 15px; box-sizing: box-content; font-weight: 300; -webkit-font-size-adjust: none;}
 a, a:hover, a:visited {text-decoration: none; color: #555;}
 input { background: none; }
 input:focus, textarea:focus { outline:none; }
@@ -8,36 +9,35 @@ input:focus, textarea:focus { outline:none; }
 .mag20 { margin-left: 20; }
 .nondisp { display: none; }
 .tpl-data { display: none; }
-.play-main-frame {margin-top: 50px; background: #fff; color: #555; margin-right:auto; 
-margin-left:auto;width:800px;height:600px;}
-.play-main-frame div {float:left; display:inline; }
+.play-main-frame {top:0; margin-top: 50px; background: #fff; color: #555; margin-right:auto;margin-left:auto;width:800px;height:600px;}
+.play-main-frame div {float:left; display:inline-block; }
 .play-main-frame .title-nav {width:100%;height:50px;background:#437096;}
-.play-main-frame .title-nav .title {width:140px; text-align: center; font-weight: bold; height: 50px; color: #e9ae5e;}
+.play-main-frame .title-nav .title {width:160px; text-align: center; font-weight: bold; height: 30px; padding-top:14px; color: #e9ae5e;}
 .play-main-frame .title-nav .title:hover .subtitle { color: #fff; }
-.play-main-frame .title-nav .title .maintitle { float:left; display:inline; padding-left: 25px; font-size: 20px; font-weight: bold; margin-top: 0px; padding-top:10px; color: #b2cbe0; }
-.play-main-frame .title-nav .title .subtitle { float:left; display:inline; font-size: 10px; margin-top: 10px;}
+.play-main-frame .title-nav .title .maintitle { float:left; display:inline; padding-left: 25px; font-size: 20px; font-weight: bold; margin-top: 0px; color: #b2cbe0;  }
+.play-main-frame .title-nav .title .subtitle { float:left; display:inline; font-size: 12px; }
 .play-main-frame .title-nav .navs { font-size: 16px; height: 100%; margin-left: 80px; color: #8fbbe0;}
-.play-main-frame .title-nav .navs .navitem { padding-top: 12px; margin-left: -3px; width: 100px; height: 38px; font-weight: bold; text-align: center; border-left: 3px #fff solid; border-right: 3px #fff solid;}
+.play-main-frame .title-nav .navs .navitem { padding-top: 16px; margin-left: -3px; width: 100px; height: 34px; font-weight: bold; text-align: center; border-left: 3px #fff solid; border-right: 3px #fff solid;}
 .play-main-frame .title-nav .navs .navitem:hover { background: #b2cbe0; color: #235074;}
 .play-main-frame .title-nav .navs .navitem.active { background: #fff; color: #235074; }
-.play-main-frame .title-nav .nav-info { font-size: 14px; width: 250px; padding-top: 15px; color: #b2cbe0; text-align: right; }
+.play-main-frame .title-nav .nav-info { font-size: 14px; width: 250px; padding-top: 18px; color: #b2cbe0; text-align: right; }
 .play-main-frame .main-content { height: 525px; width:800px; }
-.play-main-frame .footer { margin: 0px; height: 23px; width: 100%; background: #437096; text-align: center; color: #b2cbe0; font-size: 14px; padding-top: 2px;}
+.play-main-frame .footer { margin: 0px; height: 20px; width: 100%; background: #437096; text-align: center; color: #b2cbe0; font-size: 13px; padding-top: 5px;}
 .nav-info-person-btn:hover { color: #fff; }
 .nav-info-logout-btn:hover { color: #fff; }
 .nav-info-login-btn:hover { color: #fff; }
 .nav-info-register-btn:hover { color: #fff; }
 .box-container { border: 1px solid #8fbbe0; border-radius: 10px; background: #8fbbe0; padding-bottom: 5px; color: #437096; font-size: 14px;}
 .box-container .box-container-inner { width: 100%; height: 100%; background: #fff; border-top-left-radius: 10px; border-radius: 10px 10px 5px 5px; } 
-.box-container .box-container-inner .box-container-header { border-radius: 10px 10px 0px 0px; width: 100%; height: 20px; background: #8fbbe0; color: #fff; font-weight: bold; font-size: 12px; text-indent: 20px; }
+.box-container .box-container-inner .box-container-header { border-radius: 10px 10px 0px 0px; width: 100%; height: 20px; background: #8fbbe0; color: #fff; padding-top: 5px; font-weight: bold; font-size: 12px; text-indent: 20px; }
 .mainc { margin: 10px; height: 490px; width: 550px; }
 .sidec { margin: 10px; height: 490px; width: 200px; }
 .footer a, a:visited { color: #b2cbe0; }
 .dialog-bg { z-index: 24; background: #000; position: absolute; top:0px; left:0px;}
 .dialog { border: 1px solid #437096; position: absolute; z-index: 25; background: #fff; }
 .dialog div{ float: left; display: inline;}
-.dialog .dialog-title { width: 100%; height: 24px; font-size: 16px; background: #437096; color: #fff; }
-.dialog .dialog-title .dialog-title-text { text-indent: 5px; }
+.dialog .dialog-title { width: 100%; height: 24px; font-size: 16px; background: #437096; color: #fff;  }
+.dialog .dialog-title .dialog-title-text { text-indent: 5px; padding-top:3px;}
 .dialog .dialog-title .dialog-title-close-bt { float: right; color: #b2cbe0; font-size: 12px; padding-top: 5px; padding-right: 5px;}
 .fast-login-con { width:100%; height: 150px; }
 .ranking-con { width:100%; height: 313px; margin-top: 20px; }
@@ -45,12 +45,13 @@ input[type='text'], input[type='password'] { border-width: 1px; border-style: so
 .notice-fb { width: 100%; height: 15px; font-size: 80%; text-align: center; padding-top: 5px;}
 .notice-fb .notice-error { color: red; }
 .notice-fb .notice-succ { color: green; }
-.user-input-panel  { margin: 10px; }
+.user-input-panel  { margin: 10px; line-height: 110%;}
+.user-input-panel .user-input-sep { width: 100%; margin-top: 4px; }
 .user-input-panel input { float: right; }
 .input-btn-panel { width: 100%; margin-top: 15px; }
 .input-btn-panel .btn { float:right; margin-right: 10px; }
 
-.btn { border-style: solid; border-width: 1px; background: #437096; color: #fff; padding-left: 6px; padding-right: 6px;}
+.btn { border-style: solid; border-width: 1px; background: #437096; color: #fff; padding: 2px 6px 2px 6px;}
 .btn:hover { color: #437096; background: none; }
 .btn .btn-inner { width: 100%; text-align: center; }
 .form-sep-panel { margin-top: 10px; }
@@ -58,14 +59,13 @@ input[type='text'], input[type='password'] { border-width: 1px; border-style: so
 .hint:before { content: "\e6f9"; font-family: 'icomoon'; }
 .main-panel { margin-left: 10px; margin-right: 10px; }
 .main-panel input { font-size: 100%; }
-.mercenary-slide { height: 480px; width: 800px;}
-.town-slide { height: 480px; width: 800px; }
+.mercenary-slide, .town-slide { height: 480px; width: 800px;}
 .slide-content { width: 100%; height: 100%; }
 .slide-content div { float: left; display: inline; }
 .slide-content .sidenav { width: 22%; height: 100%; background: #437096; border: none; padding-left: 3%; border-bottom: 2px solid #437096; }
 .slide-content .sidenavcontent { margin-left: -1px; width: 75%; height: 100%; border: 1px solid #437096; border-left: none; }
 .slide-content .sidenav .sidenavitem { height: 40px; width: 100%; text-align: center; color: #b2cbe0; margin-top: 10px; }
-.slide-content .sidenav .sidenavitem div { float: none; display:block; margin-top: 8px; }
+.slide-content .sidenav .sidenavitem div { float: none; display:block; margin-top: 12px; font-size: 15px; }
 .slide-content .sidenav .sidenavitem:hover { background: #fff; color: #437096; }
 .slide-content .sidenav .sidenavitem.active { background: #fff; border-right: 1px solid #fff; color: #437096; }
 
@@ -84,6 +84,7 @@ input[type='text'], input[type='password'] { border-width: 1px; border-style: so
 
 .member-list { margin-left: 40px; margin-top: 20px; }
 .member-list lu { list-style-type: none; }
+.member-list lu li { padding-top: 3px; padding-bottom: 3px; }
 .member-list lu li span { display: inline-block; }
 .member-list lu li span.name { width: 100px; }
 .member-list lu li span.lv   { width: 50px; }
@@ -98,8 +99,8 @@ input[type='text'], input[type='password'] { border-width: 1px; border-style: so
 .member-list .member-list-item:hover { background: #eee; }
 .member-list .member-list-item.active { background: #b2cbe0; }
 .member-list .member-list-title { background: #3f92d2; color: #fff; }
-.member-list .member-list-item .span-btn { color: #437096; }
+.member-list .member-list-item .span-btn { color: #437096; font-size: 90%;}
 
-.guild-status-bar { height: 20px; width: 800px; font-size: 13px; }
+.guild-status-bar { margin-top:3px; height: 17px; width: 800px; font-size: 13px; }
 .guild-status-bar div { float: right; }
 .guild-status-bar div:after { content: '|'; }

@@ -21,7 +21,7 @@
       {% endfor %}
     </lu>
     </div>
-    <div class='hire-phase-2 fullw' style='display:none'>
+    <div class='hire-phase-2 fullw' style='display:none;'>
       <div class='form-sep-panel'>
         <span class='label c1'> 名称： </span>
         <input type='text' class='bc1' width='300px' name='hirename'/><br>
@@ -33,6 +33,6 @@
         <div class='btn'> <div class='btn-inner' onclick='cl.reset();resetform(this);'> 重置 </div> </div>
       </div>
     </div>
-  </form>
-  <script type='text/javascript'>cl=new ClickableList('class-choose');cl.act(function(){$('.hire-phase-2').css('display', 'block')}).disact(function(){$('.hire-phase-2').css('display', 'none')});</script>
+  </form> 
+  <script type='text/javascript'>cl=new ClickableList('class-choose');cl.act(function(){$('.hire-phase-2').css('display', 'block')}).disact(function(){$('.hire-phase-2').css('display', 'none')});</script> 
 </div>
