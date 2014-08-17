@@ -9,7 +9,7 @@
 {% block body_content %}
 <div class='play-main-frame'>
     <div class='title-nav'>
-    	 <div class='title' data-href='/play/'><div class='maintitle'>水晶大陆</div><div class='subtitle'>ALPHA</div></div>
+    	 <div class='title' data-href='/play/'><div class='h1 c3 maintitle'>水晶大陆</div><div class='mark c2 subtitle'>ALPHA</div></div>
 	 <div class='navs'>
 		<div class='navitem' id='mercenaries' data-href='/play/mercenaries/'> <span> 社团 </span> </div>
 		<div class='navitem' id='town' data-href='/play/town/'> <span> 城镇 </span> </div>

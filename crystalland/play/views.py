@@ -118,7 +118,18 @@ def GetMemberDetail(request):
     member_detail['name'] = res[0].name
     member_detail['cls'] = play_settings.NEWPLAYER_CLASS_TABLE[res[0].cl]['name']
     member_detail['lv'] = res[0].lv
-    print member_detail
+    member_detail['hp'] = res[0].maxhp
+    member_detail['sp'] = res[0].maxsp
+    member_detail['exp'] = res[0].exp
+    member_detail['atk'] = res[0].atk
+    member_detail['matk'] = res[0].matk
+    member_detail['def'] = res[0]._def
+    member_detail['mdef'] = res[0].mdef
+    member_detail['speed'] =  res[0].spd
+    member_detail['str'] = res[0]._str
+    member_detail['vit'] = res[0]._vit
+    member_detail['int'] = res[0]._int
+    member_detail['apts'] = res[0].apts
     return HttpResponse(json.dumps({'status': 'ok', 'data': member_detail}))
         
 @login_required

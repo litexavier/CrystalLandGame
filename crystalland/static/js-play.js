@@ -78,7 +78,7 @@ function init() { datahrefinit();}
 function navhilight(e) {$('#'+e).addClass('active');}
 function datahrefinit() {$('[data-href]').click(function(e){window.location=this.getAttribute('data-href');});}
 function Dialog() {
-    this.dlgtxt=""; this.dlgtitle=""; this.w = 0; this.h = 0; this.dc=false;
+    this.dlgtxt=""; this.w = 0; this.h = 0; this.dc=false; this.close_event=[];
 	  Dialog.prototype.resize=function() {
 		    x=document.body.scrollWidth;
 		    y=document.body.scrollHeight;
@@ -97,7 +97,7 @@ function Dialog() {
 	      var mfy = $('.play-main-frame')[0].offsetTop;
 	      var mr = (800 - this.w)/2;
 	      var dt = this.dlgtxt;
-	      dt = "<div class='dialog-title'>" + "<div class='dialog-title-text'>" + this.dlgtitle + "</div><div class='dialog-title-close-bt'><span class='icon-close'></span></div></div>" + dt;
+        if('dlgtitle' in this) dt = "<div class='dialog-title'>" + "<div class='dialog-title-text'>" + this.dlgtitle + "</div><div class='dialog-title-close-bt'><span class='icon-close'></span></div></div>" + dt;
 	      dt = "<div class='dialog'>" + dt + "</div>";
 	      this.dlg=$(dt);
 	      this.dlg.css("width", this.w);
@@ -109,10 +109,11 @@ function Dialog() {
         $(document.body).append(this.dlg);
         rsh.addTrigger(this);
         this.dlgbg.click(this,function(e){e.data.close();});
+        return this;
     }
     Dialog.prototype.onResize=function(e){this.resize();}
     Dialog.prototype.attach=function(g,a,e){this.dlg.find('.'+g).bind(a,this,e);}
-    Dialog.prototype.close=function() {this.dlg.remove();this.dlgbg.remove();rsh.delTrigger(this);}
+    Dialog.prototype.close=function() {for(var i=0;i<this.close_event.length;i++)this.close_event[i].close();this.dlg.remove();this.dlgbg.remove();rsh.delTrigger(this);}
     return this;
 }
 function ResizeEventHandler() {
@@ -133,6 +134,23 @@ function ResizeEventHandler() {
 				        break;
 			      }
 	  }
+    return this;
+}
+function Foldable(e) {
+    this.items = [];
+    var p=$(e).find('.fold');
+    for(var i=0;i<p.length;i++)this.items.push({t:$(p[i]).find('.fold-t')[0], c:$(p[i]).find('.fold-c')[0]});
+    for(var i=0;i<this.items.length;i++) {
+        $(this.items[i].t).click([this,this.items[i]],function(e){e.data[0].show(e.data[1]);});
+    }
+    Foldable.prototype.show=function(e) {
+        for(var i=0;i<this.items.length;i++) $(this.items[i].c).css('display','none');
+        $(e.c).css('display','inline');
+    }
+    Foldable.prototype.close=function() {
+        delete this;
+    }
+    this.show(this.items[0]);
     return this;
 }
 function Sidenav (e) {
@@ -262,7 +280,7 @@ function showmsg(d, da) {
 function showdialog(e,s) {
     var p=$('script[data-tpl='+e+']')[0];
     var d=new Dialog();
-    d.setTitle(p.getAttribute('data-title'));
+    if(p.hasAttribute('data-enable-title') && p.getAttribute('data-enable-title') == 'disable') {} else d.setTitle(p.getAttribute('data-title'));
     d.setWH(p.getAttribute('data-width'), p.getAttribute('data-height'));
     var t=p.innerHTML;
     if(s!=null) for(var it in s) {
@@ -280,6 +298,8 @@ function getpar(e,t) {
 }
 function showmerdetail(e) {
     $.get('/play/mercenaries/members/show/do', {id: e}, function(e){
-        showdialog('msg-dialog', e.data);
+        var d=showdialog('msg-dialog', e.data);
+        var f=new Foldable(d.dlg.find('.foldable')[0]);
+        d.close_event.push(f);
     }, 'json');
 }
